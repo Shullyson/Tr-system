@@ -83,7 +83,7 @@ SCOUT_CONFIG = {
 LLM_CONFIG = {
     # Balanced model for structured reasoning tasks — FA synthesis, TA
     # summary, decision explanation. Requires ANTHROPIC_API_KEY in your
-    # environment (.env file, see .env.example).
+    # project-root .env file.
     "model": "claude-sonnet-5",
     "max_tokens": 1000,
     "temperature": 0.2,  # low temperature: consistency matters more than

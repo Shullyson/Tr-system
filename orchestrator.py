@@ -3,9 +3,9 @@ Full end-to-end orchestrator — the actual system described in the
 architecture diagram: data -> scout gate -> parallel FA/TA/indicator ->
 risk -> decision -> email alert. Advisory only: never places a trade.
 
-Requires ANTHROPIC_API_KEY (see .env.example) for the FA/TA/decision
-agents. Email alerting requires ALERT_EMAIL_* vars in .env — optional,
-the system still runs and prints to console without them.
+Requires ANTHROPIC_API_KEY in the project-root .env file for the
+FA/TA/decision agents. Email alerting requires ALERT_EMAIL_* vars in
+.env — optional, the system still runs and prints to console without them.
 
 The deterministic layer (pipeline, indicator, scout, risk) runs
 regardless — if the scout doesn't trigger, no API calls happen at all,

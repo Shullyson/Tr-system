@@ -43,11 +43,10 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-Create `.env` directly on the server (never copy a `.env` containing real
-secrets through git or a public channel):
+Create a project-root `.env` file directly on the server (never copy a
+real `.env` containing secrets through git or a public channel):
 
 ```bash
-cp .env.example .env
 nano .env   # fill in ANTHROPIC_API_KEY and the ALERT_EMAIL_* values
 ```
 
