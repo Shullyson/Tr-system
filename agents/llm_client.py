@@ -35,7 +35,6 @@ class LLMClient:
         response = self.client.messages.create(
             model=CFG["model"],
             max_tokens=max_tokens or CFG["max_tokens"],
-            temperature=CFG["temperature"],
             system=system_prompt,
             messages=messages,
         )

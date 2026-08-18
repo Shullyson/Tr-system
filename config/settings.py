@@ -83,11 +83,15 @@ SCOUT_CONFIG = {
 LLM_CONFIG = {
     # Balanced model for structured reasoning tasks — FA synthesis, TA
     # summary, decision explanation. Requires ANTHROPIC_API_KEY in your
-    # project-root .env file.
+    # environment (.env file, see .env.example).
+    #
+    # NOTE: "temperature" is intentionally NOT set here — Sonnet 5 rejects
+    # it (deprecated in favor of its own adaptive-effort reasoning), so
+    # llm_client.py no longer passes it. Determinism/consistency for this
+    # system now comes from tight system prompts + JSON schema enforcement
+    # instead of a temperature knob.
     "model": "claude-sonnet-5",
     "max_tokens": 1000,
-    "temperature": 0.2,  # low temperature: consistency matters more than
-                          # creativity for financial reasoning output
 }
 
 EMAIL_CONFIG = {

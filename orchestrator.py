@@ -3,9 +3,9 @@ Full end-to-end orchestrator — the actual system described in the
 architecture diagram: data -> scout gate -> parallel FA/TA/indicator ->
 risk -> decision -> email alert. Advisory only: never places a trade.
 
-Requires ANTHROPIC_API_KEY in the project-root .env file for the
-FA/TA/decision agents. Email alerting requires ALERT_EMAIL_* vars in
-.env — optional, the system still runs and prints to console without them.
+Requires ANTHROPIC_API_KEY (see .env.example) for the FA/TA/decision
+agents. Email alerting requires ALERT_EMAIL_* vars in .env — optional,
+the system still runs and prints to console without them.
 
 The deterministic layer (pipeline, indicator, scout, risk) runs
 regardless — if the scout doesn't trigger, no API calls happen at all,
@@ -102,11 +102,16 @@ def run_full_pipeline(symbol, snap, indicator_agent, scout_agent, risk_agent, co
     except Exception as e:
         print(f"   TA agent failed ({e}) — continuing without it.")
 
-    decision = DecisionAgent().decide(
-        symbol=symbol, direction=direction, indicator_reading=reading,
-        risk_assessment=risk_assessment, fa_reading=fa_reading,
-        ta_reading=ta_reading, scout_reason=scout_signal.reason,
-    )
+    decision = None
+    try:
+        decision = DecisionAgent().decide(
+            symbol=symbol, direction=direction, indicator_reading=reading,
+            risk_assessment=risk_assessment, fa_reading=fa_reading,
+            ta_reading=ta_reading, scout_reason=scout_signal.reason,
+        )
+    except Exception as e:
+        print(f"   Decision agent failed ({e}) — no verdict this run, nothing logged or emailed.")
+        return None
 
     print(f"\n>>> VERDICT: {decision.verdict.upper()} <<<")
     print(f"{direction.upper()} {symbol} @ {decision.entry_price}")

@@ -122,7 +122,7 @@ FINAL RISK ASSESSMENT (already computed, do not alter):
 
 Explain this setup."""
 
-        result = self.llm.call_json(SYSTEM_PROMPT, user_prompt, max_tokens=800)
+        result = self.llm.call_json(SYSTEM_PROMPT, user_prompt, max_tokens=1500)
 
         return DecisionOutput(
             symbol=symbol,
